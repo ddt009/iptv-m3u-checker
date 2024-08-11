@@ -291,20 +291,19 @@ def main():
     # 添加互斥组，使得 -c, -i, 和 -o 不能同时出现
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
-        "-c", "--check", action="store_true", help="检查记录中的的url是否可用并记录."
+        "-i", "--input", type=str, help="解析文件夹下的所有.m3u文件，登记新记录。"
     )
     group.add_argument(
-        "-i", "--input", type=str, help="解析文件夹下的所有.m3u文件，登记新记录."
+        "-c", "--check", action="store_true", help="检查记录中的的url是否可用并记录。"
     )
-    group.add_argument("-o", "--output", type=str, help="输出m3u文件.")
-
     # 添加 --force 选项，但只在与 --check 一起使用时才有效
     parser.add_argument(
         "-f",
         "--force",
         action="store_true",
-        help="强制检查所有记录，默认只重新检查有效地址或新地址.",
+        help="强制检查所有记录，默认只重新检查有效地址或新地址。配合-c使用。",
     )
+    group.add_argument("-o", "--output", type=str, help="输出m3u文件。")
 
     # 解析命令行参数
     args = parser.parse_args()
